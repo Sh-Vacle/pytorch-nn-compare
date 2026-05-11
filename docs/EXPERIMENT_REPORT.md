@@ -4,6 +4,8 @@
 
 This experiment compares two multilayer perceptron models on a synthetic 2D non-linear binary classification task. The goal is to observe how data preprocessing, network capacity, optimizer selection, and activation function influence training and evaluation results.
 
+This experiment is designed as a compact learning project rather than a real-world classification system. It uses a controlled synthetic dataset to make the effects of preprocessing, model capacity, optimizer choice, and activation function easier to observe.
+
 The comparison is controlled: both models use the same generated dataset, same train/test split, same evaluation metrics, and same number of training epochs.
 
 ## 🗂️ 2. Dataset
@@ -106,3 +108,5 @@ python train_compare.py --epochs 120 --output-dir results --no-plots
 ## ⚠️ 11. Limitations
 
 This experiment uses a synthetic dataset with a small feature dimension. It is useful for understanding a basic neural network training workflow, but it does not represent model performance on real-world data.
+
+A stronger evaluation could include multiple random seeds, mean and standard deviation of accuracy, and comparison on a small real-world dataset.
