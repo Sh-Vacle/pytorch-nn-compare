@@ -1,0 +1,45 @@
+{
+  "device": "cpu",
+  "config": {
+    "samples": 1200,
+    "test_ratio": 0.25,
+    "epochs": 120,
+    "batch_size": 64,
+    "baseline_lr": 0.05,
+    "improved_lr": 0.01,
+    "seed": 42,
+    "num_threads": 1
+  },
+  "baseline": {
+    "train_loss": 0.12239407302604781,
+    "test_loss": 0.13538171350955963,
+    "test_accuracy": 0.9766666889190674,
+    "parameters": 42,
+    "confusion_matrix": [
+      [
+        142,
+        4
+      ],
+      [
+        3,
+        151
+      ]
+    ]
+  },
+  "improved": {
+    "train_loss": 0.02379813886076186,
+    "test_loss": 0.03342828154563904,
+    "test_accuracy": 0.9933333396911621,
+    "parameters": 1218,
+    "confusion_matrix": [
+      [
+        146,
+        0
+      ],
+      [
+        2,
+        152
+      ]
+    ]
+  }
+}

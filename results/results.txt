@@ -1,0 +1,13 @@
+PyTorch 2D Non-linear Binary Classification Experiment
+Device: cpu
+Config: {"samples": 1200, "test_ratio": 0.25, "epochs": 120, "batch_size": 64, "baseline_lr": 0.05, "improved_lr": 0.01, "seed": 42, "num_threads": 1}
+
+Baseline: parameters=42, train_loss=0.1224, test_loss=0.1354, test_accuracy=97.67%
+Improved: parameters=1218, train_loss=0.0238, test_loss=0.0334, test_accuracy=99.33%
+
+Markdown table:
+
+| Model | Parameters | Train loss | Test loss | Test accuracy | Method |
+| --- | ---: | ---: | ---: | ---: | --- |
+| Baseline | 42 | 0.1224 | 0.1354 | 97.67% | Raw features + 1 hidden layer + ReLU + SGD |
+| Improved | 1218 | 0.0238 | 0.0334 | 99.33% | Standardization + 2 hidden layers + LeakyReLU + Adam |
