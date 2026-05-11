@@ -2,7 +2,9 @@
 
 # 🧠 PyTorch Neural Network Comparison
 
-A compact, reproducible PyTorch experiment for comparing a baseline MLP and an improved MLP on a synthetic 2D non-linear binary classification task.
+A small, reproducible PyTorch experiment for comparing a baseline MLP and an improved MLP on a synthetic 2D non-linear binary classification task.
+
+This project focuses on the basic neural network training workflow in PyTorch, including dataset generation, model definition, training, evaluation, visualization, and result export. The task is intentionally simple so that the effect of different model settings can be observed clearly.
 
 ![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
 ![PyTorch](https://img.shields.io/badge/PyTorch-2.0%2B-ee4c2c)
@@ -16,13 +18,27 @@ A compact, reproducible PyTorch experiment for comparing a baseline MLP and an i
 
 This repository compares two neural network configurations under the same dataset, split strategy, training loop, and evaluation workflow.
 
-The goal is to show how several common improvements affect model performance:
+The goal is to observe how several common changes affect model behavior on a controlled classification task:
 
 - input feature standardization;
 - deeper and wider hidden layers;
 - optimizer replacement from SGD to Adam;
 - activation replacement from ReLU to LeakyReLU;
-- experiment logging and visualization.
+- experiment logging, visualization, and result export.
+
+## 🎯 Scope
+
+This repository is a learning-oriented experiment rather than a production machine learning system.
+
+The main goal is to demonstrate and compare:
+
+- how a basic PyTorch training loop is organized;
+- how feature standardization affects model training;
+- how model capacity influences non-linear classification;
+- how different optimizers and activation functions change training behavior;
+- how to export experiment results and visualizations for later analysis.
+
+Since the dataset is synthetic and low-dimensional, the reported accuracy should be interpreted as the result of this controlled experiment, not as evidence of performance on real-world data.
 
 ## 📌 Experiment Pipeline
 
@@ -123,14 +139,14 @@ python train_compare.py --no-plots
 
 ## ✅ Example Result
 
-One run with the default configuration produced the following result:
+The following result comes from one run with the default configuration. Because the dataset is synthetic, the result is mainly used to compare the two model settings under the same experimental condition.
 
 | Model | Parameters | Train loss | Test loss | Test accuracy | Method |
 | --- | ---: | ---: | ---: | ---: | --- |
 | Baseline | 42 | 0.1224 | 0.1354 | 97.67% | Raw features + 1 hidden layer + ReLU + SGD |
 | Improved | 1,218 | 0.0238 | 0.0334 | 99.33% | Standardization + 2 hidden layers + LeakyReLU + Adam |
 
-The improved model achieves lower training loss, lower test loss, and higher test accuracy on this synthetic task.
+The improved model achieves lower training loss, lower test loss, and higher test accuracy in this controlled experiment.
 
 ## 📦 Output Files
 
@@ -173,6 +189,10 @@ pytorch-nn-compare/
 - [`docs/EXPERIMENT_REPORT.md`](docs/EXPERIMENT_REPORT.md): detailed experiment report.
 - [`docs/DESIGN_NOTES.md`](docs/DESIGN_NOTES.md): implementation and design notes.
 
-## ⚠️ Notes
+## ⚠️ Limitations
 
-This project uses a synthetic dataset. It is designed for controlled neural network comparison and training workflow demonstration, not for measuring performance on a real-world dataset.
+- The dataset is synthetically generated and much simpler than real-world datasets.
+- The input has only two features, which makes the decision boundary easy to visualize but limits task complexity.
+- The experiment uses MLP models only and does not cover CNNs, RNNs, Transformers, or large-scale datasets.
+- The current result is based on a single default run. A more rigorous comparison would require multiple random seeds and statistical reporting.
+- This project is mainly intended for learning, experiment organization, and PyTorch workflow demonstration.
