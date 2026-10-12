@@ -4,11 +4,11 @@
 
 **Synthetic 2D Classification** · Baseline 与 Improved 两种 MLP 组合配置
 
-<p><img src="assets/badges/tech-1.svg" alt="PyTorch 2.0+"> · Python 3.11 已验证环境 · <a href="LICENSE">MIT</a></p>
+<p><img src="assets/badges/tech-1.svg" alt="PyTorch 2.0+"> · Python 3.11 · <a href="LICENSE">MIT</a></p>
 
 一个小规模、可读的 PyTorch 学习实验：在二维合成非线性二分类数据上，对比基础 MLP 与另一组更大网络/优化设置。包含训练评估、决策边界、曲线、混淆矩阵和结构化结果导出，不是真实场景基准。
 
-[📊 实验图](#-保存的实验图) · [🧪 配置对比](#-实验设置) · [📈 历史结果](#-历史结果) · [🚀 复现](#-复现与轻量检查)
+[📊 图表](#-保存的实验图) · [🧪 配置](#-实验设置) · [📈 结果](#-历史结果) · [🚀 复现](#-复现与轻量检查)
 
 [实验入口](train_compare.py) · [实验分析](docs/EXPERIMENT_REPORT.md) · [设计说明](docs/DESIGN_NOTES.md) · [验证记录](VERIFICATION.md)
 
