@@ -1,38 +1,36 @@
-<p><img src="assets/logo.svg" width="88" alt="橙红实验曲线Logo"></p>
+<p align="center"><img src="assets/logo.svg" width="108" alt="🧠 PyTorch MLP 实验 Logo"></p>
 
-# 🧠 PyTorch MLP 对比实验
+<h1 align="center">🧠 PyTorch MLP 实验</h1>
 
-**Synthetic 2D Classification** · Baseline 与 Improved 两种 MLP 组合配置
+<p align="center">二维合成数据上的 MLP 配置对比</p>
 
-<p><img src="assets/badges/tech-1.svg" alt="PyTorch 2.0+"> · Python 3.11 · <a href="LICENSE">MIT</a></p>
+<p align="center"><img src="assets/badges/python.svg" alt="Python 3.11验证环境"> <img src="assets/badges/tech-1.svg" alt="PyTorch 2.0+"></p>
 
-一个小规模、可读的 PyTorch 学习实验：在二维合成非线性二分类数据上，对比基础 MLP 与另一组更大网络/优化设置。包含训练评估、决策边界、曲线、混淆矩阵和结构化结果导出，不是真实场景基准。
+在二维非线性分类数据上比较两种MLP配置，保存训练曲线、决策边界、混淆矩阵和结构化结果。入口包含数据生成、训练、评估与可视化。
 
-[📊 图表](#-保存的实验图) · [🧪 配置](#-实验设置) · [📈 结果](#-历史结果) · [🚀 复现](#-复现与轻量检查)
-
-[实验入口](train_compare.py) · [实验分析](docs/EXPERIMENT_REPORT.md) · [设计说明](docs/DESIGN_NOTES.md) · [验证记录](VERIFICATION.md)
+[代码与参数](train_compare.py) · [实验分析](docs/EXPERIMENT_REPORT.md) · [设计说明](docs/DESIGN_NOTES.md) · [验证记录](VERIFICATION.md)
 
 ## 📊 保存的实验图
 
-下列六张图来自仓库保存的历史实验，本轮未训练或重新生成结果图。图片可点击查看完整分辨率。
+保存实验的六张图，可点击查看完整分辨率。
 
 <p align="center"><a href="assets/dataset_preview.png"><img src="assets/dataset_preview.png" width="380" alt="二维合成数据分布"></a></p>
 
-### 🎯 数据与决策边界
+### 数据与决策边界
 
 <p align="center">
 <a href="assets/decision_boundary_baseline.png"><img src="assets/decision_boundary_baseline.png" width="380" alt="Baseline决策边界"></a>
 <a href="assets/decision_boundary_improved.png"><img src="assets/decision_boundary_improved.png" width="380" alt="Improved决策边界"></a>
 </p>
 
-### 📉 训练曲线
+### 训练曲线
 
 <p align="center">
 <a href="assets/loss_curve.png"><img src="assets/loss_curve.png" width="380" alt="两种配置的历史损失曲线"></a>
 <a href="assets/accuracy_curve.png"><img src="assets/accuracy_curve.png" width="380" alt="两种配置的历史准确率曲线"></a>
 </p>
 
-### 🔎 混淆矩阵
+### 混淆矩阵
 
 <p align="center"><a href="assets/confusion_matrices.png"><img src="assets/confusion_matrices.png" width="760" alt="两种配置的历史混淆矩阵"></a></p>
 
@@ -48,8 +46,6 @@
 | 优化器 / 学习率 | SGD / 0.05 | Adam / 0.01 |
 | 参数量 | 42 | 1218 |
 
-这里同时改变了容量、标准化、激活和优化器，因此比较的是两种组合配置，不能分解每个因素的独立贡献。训练中逐epoch观察测试指标；更严格的研究需要独立验证集和未参与开发的最终测试集。
-
 ## 📈 历史结果
 
 来自 [summary.json](results/summary.json) 的单seed CPU记录：
@@ -59,30 +55,35 @@
 | Baseline | 42 | 0.1224 | 0.1354 | 97.67% |
 | Improved | 1218 | 0.0238 | 0.0334 | 99.33% |
 
-Improved 在这次保存实验中取得较低损失与较高准确率，不能推广为真实数据性能、跨seed稳定优势或单因素因果结论。完整逐轮记录见 [history.csv](results/history.csv)，控制台示例见 [example_output.txt](results/example_output.txt)。
+
+逐轮记录见[history.csv](results/history.csv)，控制台示例见[example_output.txt](results/example_output.txt)。
 
 ## 🚀 复现与轻量检查
 
-依赖见 [requirements.txt](requirements.txt)：torch≥2.0、NumPy≥1.23、Matplotlib≥3.7；已有验证环境为Python3.11。GPU不是必要条件。
+依赖见[requirements.txt](requirements.txt)：torch≥2.0、NumPy≥1.23、Matplotlib≥3.7；已验证环境为Python3.11，GPU可选。
 
 ```bash
 pip install -r requirements.txt
 python -m unittest discover -s tests -v
 ```
 
-用户如需重跑训练，可使用下面的命令。独立输出目录避免覆盖仓库保存的历史结果：
+重跑实验时使用独立输出目录，保留仓库中的历史结果：
 
 ```bash
 python train_compare.py --cpu --output-dir runs/local/results --assets-dir runs/local/assets
 python train_compare.py --help
 ```
 
-入口支持样本数、测试比例、轮数、batch size、学习率、seed、CPU线程及 `--no-plots`，完整默认值以源码/帮助输出为准。训练脚本会写入指定结果与图片目录，请勿将一次重跑当作多seed统计。
+入口支持样本数、测试比例、轮数、batch size、学习率、seed、CPU线程及 `--no-plots`。默认值以帮助输出和源码为准。
 
-5项无训练CPU测试在上一轮实际通过，覆盖900/300划分、极端比例拒绝、训练统计标准化和42/1218参数；本轮展示修改没有改源码，复用原验证记录。没有新训练、CUDA、多seed或单因素消融记录，不展示绿色构建/训练成功徽章。
+## 🛠️ 验证与解释边界
+
+5项无训练CPU检查已通过，覆盖默认900/300划分、极端比例拒绝、训练统计标准化与42/1218参数量，见[验证记录](VERIFICATION.md)。图表和准确率来自保存的单seed CPU实验，没有新增训练或CUDA验收记录。
+
+两组配置同时改变容量、标准化、激活和优化器，没有逐因素消融或多seed统计，不能分解各因素的贡献或推广为真实数据性能。训练时逐epoch观察测试指标；更严格的比较需要独立验证集与未参与开发的最终测试集。
 
 ## 📁 文件与许可
 
-`train_compare.py` 是实验入口；`tests/` 是小型数据/结构检查；`assets/` 保存图表与原创项目SVG；`results/` 保存历史结果；`docs/` 保存实验分析。新增的 `runs/` 排除规则只用于本地复现输出，不提交私人环境或缓存。
+`train_compare.py`是入口，`tests/`保存小型数据/结构检查，`assets/`与`results/`保存历史图表和结果，`docs/`保存实验分析。`runs/`用于本地复现输出，已排除Git跟踪。
 
-保留 [MIT LICENSE](LICENSE)。本轮 Logo 和技术徽章自行编写，六张实验 PNG 原样保留；没有外部图床、动态图、训练数据或权重。[公开文件清单](PUBLIC_FILES_MANIFEST.md) · [排除清单](EXCLUDED_FILES.md)
+保留[MIT LICENSE](LICENSE)。原六张实验PNG不作改动；资源来源见[assets说明](assets/README.md)。[公开文件清单](PUBLIC_FILES_MANIFEST.md) · [排除清单](EXCLUDED_FILES.md)
