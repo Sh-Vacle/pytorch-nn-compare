@@ -1,204 +1,83 @@
-<div align="center">
+<p align="center"><img src="assets/logo.svg" width="96" alt="PyTorch 神经网络对比实验 Logo"></p>
 
-# 🧠 PyTorch Neural Network Comparison
+<h1 align="center">PyTorch 神经网络对比实验</h1>
 
-A small, reproducible PyTorch experiment for comparing a baseline MLP and an improved MLP on a synthetic 2D non-linear binary classification task.
+<p align="center">Synthetic 2D Classification · 两种 MLP 配置的训练与可视化</p>
 
-This project focuses on the basic neural network training workflow in PyTorch, including dataset generation, model definition, training, evaluation, visualization, and result export. The task is intentionally simple so that the effect of different model settings can be observed clearly.
-
-![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
-![PyTorch](https://img.shields.io/badge/PyTorch-2.0%2B-ee4c2c)
-![CUDA](https://img.shields.io/badge/CUDA-Optional-76B900)
-![Matplotlib](https://img.shields.io/badge/Visualization-Matplotlib-orange)
-![License](https://img.shields.io/badge/License-MIT-green)
-
-</div>
-
-## 中文说明
-
-这是二维合成数据的MLP基础实验，对比两种组合配置；不是业务系统或竞赛获奖项目。历史单seed CPU记录为97.67%/99.33%，本次整理没有重新训练，也没有用新运行结果覆盖results。代码标准化仅使用训练集统计；不同网络容量、优化器、激活与标准化同时改变，尚无逐因素消融证据。
-
-新增的 `tests/test_data_validation.py` 只做小型CPU数据/结构检查，不执行训练。运行 `python -m unittest discover -s tests -v`；环境与结果边界见 [验证记录](VERIFICATION.md)。
-
-## ✨ Overview
-
-This repository compares two neural network configurations under the same dataset, split strategy, training loop, and evaluation workflow.
-
-The goal is to observe how several common changes affect model behavior on a controlled classification task:
-
-- input feature standardization;
-- deeper and wider hidden layers;
-- optimizer replacement from SGD to Adam;
-- activation replacement from ReLU to LeakyReLU;
-- experiment logging, visualization, and result export.
-
-## 🎯 Scope
-
-This repository is a learning-oriented experiment rather than a production machine learning system.
-
-The main goal is to demonstrate and compare:
-
-- how a basic PyTorch training loop is organized;
-- how feature standardization affects model training;
-- how model capacity influences non-linear classification;
-- how different optimizers and activation functions change training behavior;
-- how to export experiment results and visualizations for later analysis.
-
-Since the dataset is synthetic and low-dimensional, the reported accuracy is a historical single-seed result. The changes are bundled, so the experiment does not identify each factor's individual causal contribution. Test-set metrics are logged each epoch; a stricter future study should introduce a separate validation split and untouched final test set.
-
-## 📌 Experiment Pipeline
-
-```text
-Synthetic 2D Dataset
-        │
-        ├── Baseline MLP
-        │   └── Raw features + ReLU + SGD
-        │
-        └── Improved MLP
-            └── Standardized features + LeakyReLU + Adam
-        │
-        ▼
-Training History → Metrics → Visualization → Result Export
-```
-
-## 📊 Visual Results
-
-### Dataset and Decision Boundary
-
-| Dataset Preview | Baseline Decision Boundary | Improved Decision Boundary |
-| --- | --- | --- |
-| ![Dataset](assets/dataset_preview.png) | ![Baseline Decision Boundary](assets/decision_boundary_baseline.png) | ![Improved Decision Boundary](assets/decision_boundary_improved.png) |
-
-### Training Curves and Confusion Matrices
-
-| Test Loss Curve | Test Accuracy Curve |
-| --- | --- |
-| ![Loss Curve](assets/loss_curve.png) | ![Accuracy Curve](assets/accuracy_curve.png) |
-
-<p align="center">
-  <img src="assets/confusion_matrices.png" width="720" alt="Confusion matrix comparison">
+<p align="center"><img src="assets/badges/tech-0.svg" alt="Python 3.11 tested">
+<img src="assets/badges/tech-1.svg" alt="PyTorch 2.0+">
+<img src="assets/badges/tech-2.svg" alt="License MIT">
 </p>
 
-## 🧪 Model Comparison
+一个小规模、可读的 PyTorch 学习实验：在二维合成非线性二分类数据上，对比基础 MLP 与另一组更大网络/优化设置。包含数据生成、训练评估、决策边界、曲线、混淆矩阵和结构化结果导出，不是业务系统或真实场景基准。
 
-| Item | Baseline | Improved |
-| --- | --- | --- |
-| Input features | Raw 2D features | Standardized 2D features |
-| Hidden layers | 1 hidden layer | 2 hidden layers |
-| Hidden units | 8 | 32 + 32 |
-| Activation | ReLU | LeakyReLU |
-| Optimizer | SGD | Adam |
-| Learning rate | 0.05 | 0.01 |
-| Trainable parameters | 42 | 1,218 |
-| Loss function | CrossEntropyLoss | CrossEntropyLoss |
+[运行入口](train_compare.py) · [实验分析](docs/EXPERIMENT_REPORT.md) · [设计说明](docs/DESIGN_NOTES.md) · [实际验证](VERIFICATION.md)
 
-## 🚀 Quick Start
+## 实验设置
 
-### 1. Install dependencies
+默认生成1200个二维样本，seed42，900训练/300测试，CPU历史记录为120轮。标准化只使用训练集统计量。
+
+| 配置 | Baseline | Improved |
+|---|---|---|
+| 网络 | 2 → 8 → 2 | 2 → 32 → 32 → 2 |
+| 输入 | 原始特征 | 训练统计标准化 |
+| 激活 | ReLU | LeakyReLU |
+| 优化器 / 学习率 | SGD / 0.05 | Adam / 0.01 |
+| 参数量 | 42 | 1218 |
+
+这里同时改变了容量、标准化、激活和优化器，因此比较的是两种组合配置，不能分解每个因素的独立贡献。训练中逐epoch观察测试指标；更严格的研究需要独立验证集和未参与开发的最终测试集。
+
+## 保存的可视化
+
+下列六张图来自仓库保存的历史实验，本轮未训练或重新生成结果图。图片可点击查看完整分辨率。
+
+<p><a href="assets/dataset_preview.png"><img src="assets/dataset_preview.png" width="420" alt="二维合成数据分布"></a></p>
+
+<p>
+<a href="assets/decision_boundary_baseline.png"><img src="assets/decision_boundary_baseline.png" width="420" alt="Baseline决策边界"></a>
+<a href="assets/decision_boundary_improved.png"><img src="assets/decision_boundary_improved.png" width="420" alt="Improved决策边界"></a>
+</p>
+
+<p>
+<a href="assets/loss_curve.png"><img src="assets/loss_curve.png" width="420" alt="两种配置的历史损失曲线"></a>
+<a href="assets/accuracy_curve.png"><img src="assets/accuracy_curve.png" width="420" alt="两种配置的历史准确率曲线"></a>
+</p>
+
+<p><a href="assets/confusion_matrices.png"><img src="assets/confusion_matrices.png" width="760" alt="两种配置的历史混淆矩阵"></a></p>
+
+## 历史结果
+
+来自 [summary.json](results/summary.json) 的单seed CPU记录：
+
+| 配置 | 参数 | Train loss | Test loss | Test accuracy |
+|---|---:|---:|---:|---:|
+| Baseline | 42 | 0.1224 | 0.1354 | 97.67% |
+| Improved | 1218 | 0.0238 | 0.0334 | 99.33% |
+
+Improved 在这次保存实验中取得较低损失与较高准确率，不能推广为真实数据性能、跨seed稳定优势或单因素因果结论。完整逐轮记录见 [history.csv](results/history.csv)，控制台示例见 [example_output.txt](results/example_output.txt)。
+
+## 复现与轻量检查
+
+依赖见 [requirements.txt](requirements.txt)：torch≥2.0、NumPy≥1.23、Matplotlib≥3.7；已有验证环境为Python3.11。GPU不是必要条件。
 
 ```bash
 pip install -r requirements.txt
+python -m unittest discover -s tests -v
 ```
 
-For CUDA acceleration, install the PyTorch build that matches your local CUDA environment from the official PyTorch installation guide, then install the remaining dependencies.
-
-### 2. Run the experiment
+用户如需重跑训练，可使用下面的命令。独立输出目录避免覆盖仓库保存的历史结果：
 
 ```bash
-python train_compare.py
+python train_compare.py --cpu --output-dir runs/local/results --assets-dir runs/local/assets
+python train_compare.py --help
 ```
 
-### 3. Force CPU execution
+入口支持样本数、测试比例、轮数、batch size、学习率、seed、CPU线程及 `--no-plots`，完整默认值以源码/帮助输出为准。训练脚本会写入指定结果与图片目录，请勿将一次重跑当作多seed统计。
 
-```bash
-python train_compare.py --cpu
-```
+5项无训练CPU测试在上一轮实际通过，覆盖900/300划分、极端比例拒绝、训练统计标准化和42/1218参数；本轮展示修改没有改源码，复用原验证记录。没有新训练、CUDA、多seed或单因素消融记录，不展示绿色构建/训练成功徽章。
 
-### 4. Change training settings
+## 文件与许可
 
-```bash
-python train_compare.py --epochs 120 --batch-size 64 --output-dir results --assets-dir assets
-```
+`train_compare.py` 是实验入口；`tests/` 是小型数据/结构检查；`assets/` 保存图表与原创项目SVG；`results/` 保存历史结果；`docs/` 保存实验分析。新增的 `runs/` 排除规则只用于本地复现输出，不提交私人环境或缓存。
 
-### 5. Skip figure generation
-
-```bash
-python train_compare.py --no-plots
-```
-
-## ⚙️ Command Line Arguments
-
-| Argument | Default | Description |
-| --- | ---: | --- |
-| `--samples` | 1200 | Number of generated samples |
-| `--test-ratio` | 0.25 | Test set ratio |
-| `--epochs` | 120 | Training epochs for each model |
-| `--batch-size` | 64 | Mini-batch size |
-| `--baseline-lr` | 0.05 | Learning rate for the baseline model |
-| `--improved-lr` | 0.01 | Learning rate for the improved model |
-| `--seed` | 42 | Random seed |
-| `--num-threads` | 1 | Number of CPU threads used by PyTorch |
-| `--cpu` | False | Force CPU execution |
-| `--output-dir` | `results` | Directory for result files |
-| `--assets-dir` | `assets` | Directory for generated figures |
-| `--no-plots` | False | Disable optional figure generation |
-
-## ✅ Example Result
-
-The following result comes from one run with the default configuration. Because the dataset is synthetic, the result is mainly used to compare the two model settings under the same experimental condition.
-
-| Model | Parameters | Train loss | Test loss | Test accuracy | Method |
-| --- | ---: | ---: | ---: | ---: | --- |
-| Baseline | 42 | 0.1224 | 0.1354 | 97.67% | Raw features + 1 hidden layer + ReLU + SGD |
-| Improved | 1,218 | 0.0238 | 0.0334 | 99.33% | Standardization + 2 hidden layers + LeakyReLU + Adam |
-
-The improved configuration has lower losses and higher test accuracy in the saved default run. This observation does not establish general superiority or attribute the gain to one component.
-
-## 📦 Output Files
-
-Running `train_compare.py` generates result files and visualizations:
-
-```text
-pytorch-nn-compare/
-├── assets/
-│   ├── accuracy_curve.png
-│   ├── confusion_matrices.png
-│   ├── dataset_preview.png
-│   ├── decision_boundary_baseline.png
-│   ├── decision_boundary_improved.png
-│   └── loss_curve.png
-└── results/
-    ├── example_output.txt
-    ├── history.csv
-    ├── results.txt
-    └── summary.json
-```
-
-## 📁 Project Structure
-
-```text
-pytorch-nn-compare/
-├── README.md
-├── train_compare.py
-├── requirements.txt
-├── assets/
-├── docs/
-│   ├── DESIGN_NOTES.md
-│   └── EXPERIMENT_REPORT.md
-├── results/
-├── .gitignore
-└── LICENSE
-```
-
-## 📝 Documents
-
-- [`docs/EXPERIMENT_REPORT.md`](docs/EXPERIMENT_REPORT.md): detailed experiment report.
-- [`docs/DESIGN_NOTES.md`](docs/DESIGN_NOTES.md): implementation and design notes.
-
-## ⚠️ Limitations
-
-- The dataset is synthetically generated and much simpler than real-world datasets.
-- The input has only two features, which makes the decision boundary easy to visualize but limits task complexity.
-- The experiment uses MLP models only and does not cover CNNs, RNNs, Transformers, or large-scale datasets.
-- The current result is based on a single default run. A more rigorous comparison would require multiple random seeds and statistical reporting.
-- This project is mainly intended for learning, experiment organization, and PyTorch workflow demonstration.
+保留 [MIT LICENSE](LICENSE)。本轮 Logo 和技术徽章自行编写，六张实验 PNG 原样保留；没有外部图床、动态图、训练数据或权重。[公开文件清单](PUBLIC_FILES_MANIFEST.md) · [排除清单](EXCLUDED_FILES.md)

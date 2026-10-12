@@ -7,3 +7,5 @@ venv/
 *.pth
 .coverage
 .pytest_cache/
+
+runs/
