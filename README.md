@@ -1,4 +1,4 @@
-<p align="center"><img src="assets/logo.svg" width="108" alt="🧠 PyTorch MLP 实验 Logo"></p>
+<p align="center"><a href="https://github.com/Sh-Vacle/pytorch-nn-compare"><img src="assets/logo.svg" width="108" alt="🧠 PyTorch MLP 实验 Logo"></a></p>
 
 <h1 align="center">🧠 PyTorch MLP 实验</h1>
 
