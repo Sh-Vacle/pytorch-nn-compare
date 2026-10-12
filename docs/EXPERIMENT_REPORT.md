@@ -82,12 +82,9 @@ The improved model makes fewer classification errors on the test set.
 
 ## 🧩 9. Analysis
 
-The improvement mainly comes from four factors:
+The saved run compares two bundled configurations: standardization, capacity, optimizer, activation and learning rate all differ. The result supports an observation about these two configurations on this synthetic split, not a measured causal contribution from each factor. No one-factor ablation or multi-seed study is included.
 
-1. **Feature standardization** makes the input distribution more stable for training.
-2. **Larger network capacity** helps the model fit a more complex non-linear decision boundary.
-3. **Adam optimizer** provides adaptive parameter updates and converges more smoothly than plain SGD in this experiment.
-4. **LeakyReLU** keeps a small gradient for negative inputs and reduces the risk of inactive neurons.
+Per-epoch test metrics were observed during development. A stricter study needs a separate validation set and a final untouched test set. This preparation did not retrain either model.
 
 ## ♻️ 10. Reproducibility
 

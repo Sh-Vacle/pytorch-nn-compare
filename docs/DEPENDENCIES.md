@@ -1,0 +1,7 @@
+# 依赖与运行说明
+
+requirements.txt中的三个直接依赖为numpy、torch、matplotlib；本批保留已有版本下限，没有伪造历史lock。matplotlib用于可选出图，PyTorch支持CPU运行。选择与本机Python/CUDA兼容的PyTorch发行版后再安装其余依赖；不需要任何外部数据集或模型下载。
+
+历史summary记录CPU、seed42、1200样本、test_ratio0.25、120epoch；没有保存当时完整pip环境，因此不能承诺跨版本逐位复现。当前小型数据检查环境与训练环境不同，见VERIFICATION。
+
+完整训练入口是根目录train_compare.py；本批不执行该入口的main。可直接运行无训练unit test检验数据分割/标准化/参数数量。相同样本数但极端test_ratio会被拒绝，避免空测试集或训练集不足导致NaN。

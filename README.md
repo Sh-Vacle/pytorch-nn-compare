@@ -14,6 +14,12 @@ This project focuses on the basic neural network training workflow in PyTorch, i
 
 </div>
 
+## 中文说明
+
+这是二维合成数据的MLP基础实验，对比两种组合配置；不是业务系统或竞赛获奖项目。历史单seed CPU记录为97.67%/99.33%，本次整理没有重新训练，也没有用新运行结果覆盖results。代码标准化仅使用训练集统计；不同网络容量、优化器、激活与标准化同时改变，尚无逐因素消融证据。
+
+新增的 `tests/test_data_validation.py` 只做小型CPU数据/结构检查，不执行训练。运行 `python -m unittest discover -s tests -v`；环境与结果边界见 [验证记录](VERIFICATION.md)。
+
 ## ✨ Overview
 
 This repository compares two neural network configurations under the same dataset, split strategy, training loop, and evaluation workflow.
@@ -38,7 +44,7 @@ The main goal is to demonstrate and compare:
 - how different optimizers and activation functions change training behavior;
 - how to export experiment results and visualizations for later analysis.
 
-Since the dataset is synthetic and low-dimensional, the reported accuracy should be interpreted as the result of this controlled experiment, not as evidence of performance on real-world data.
+Since the dataset is synthetic and low-dimensional, the reported accuracy is a historical single-seed result. The changes are bundled, so the experiment does not identify each factor's individual causal contribution. Test-set metrics are logged each epoch; a stricter future study should introduce a separate validation split and untouched final test set.
 
 ## 📌 Experiment Pipeline
 
@@ -146,7 +152,7 @@ The following result comes from one run with the default configuration. Because 
 | Baseline | 42 | 0.1224 | 0.1354 | 97.67% | Raw features + 1 hidden layer + ReLU + SGD |
 | Improved | 1,218 | 0.0238 | 0.0334 | 99.33% | Standardization + 2 hidden layers + LeakyReLU + Adam |
 
-The improved model achieves lower training loss, lower test loss, and higher test accuracy in this controlled experiment.
+The improved configuration has lower losses and higher test accuracy in the saved default run. This observation does not establish general superiority or attribute the gain to one component.
 
 ## 📦 Output Files
 

@@ -107,6 +107,8 @@ def make_dataset(
     y = y[indices]
 
     test_size = int(n_samples * test_ratio)
+    if test_size < 1 or n_samples - test_size < 2:
+        raise ValueError("Split must contain at least one test sample and two training samples")
     x_train = x[:-test_size]
     y_train = y[:-test_size]
     x_test = x[-test_size:]
