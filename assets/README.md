@@ -1,5 +1,7 @@
 # 展示资源来源
 
-本轮 logo.svg、badges/ SVG 及 social-preview.svg 为自行编写的几何图形/文本；主色深蓝、辅色青色，不使用第三方角色、厂商商标或外部字体。徽章只陈述源码配置、依赖要求或已记录的验证环境，不代表构建/训练通过。
+橙红与石墨灰；无框实验曲线符号。首页只展示一个PyTorch徽章，真实实验图优先；分享图嵌入原dataset_preview.png。
 
-social-preview.png 是从对应 SVG 渲染的项目介绍卡，**不是应用界面截图**；仅生成文件并不能自动设置GitHub分享预览，需在仓库Settings的Social preview上传。PyTorch原有六张PNG是历史实验图，本轮没有重绘。
+Logo、徽章、流程图和分享卡均为自行编写的SVG；不使用第三方角色、厂商商标或外部字体。PyTorch六张原实验PNG保持原字节，没有重训或重绘。
+
+social-preview.png由对应SVG渲染，是项目分享卡，不是App界面截图或新实验结果。文件存在不代表GitHub Settings的Social preview已经设置；仍需本人在网页上传。许可维持本仓库既有结论，不新增业务源码许可证。

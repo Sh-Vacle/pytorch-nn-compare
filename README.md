@@ -1,19 +1,42 @@
-<p align="center"><img src="assets/logo.svg" width="96" alt="PyTorch 神经网络对比实验 Logo"></p>
+<p><img src="assets/logo.svg" width="88" alt="橙红实验曲线Logo"></p>
 
-<h1 align="center">PyTorch 神经网络对比实验</h1>
+# 🧠 PyTorch MLP 对比实验
 
-<p align="center">Synthetic 2D Classification · 两种 MLP 配置的训练与可视化</p>
+**Synthetic 2D Classification** · Baseline 与 Improved 两种 MLP 组合配置
 
-<p align="center"><img src="assets/badges/tech-0.svg" alt="Python 3.11 tested">
-<img src="assets/badges/tech-1.svg" alt="PyTorch 2.0+">
-<img src="assets/badges/tech-2.svg" alt="License MIT">
+<p><img src="assets/badges/tech-1.svg" alt="PyTorch 2.0+"> · Python 3.11 已验证环境 · <a href="LICENSE">MIT</a></p>
+
+一个小规模、可读的 PyTorch 学习实验：在二维合成非线性二分类数据上，对比基础 MLP 与另一组更大网络/优化设置。包含训练评估、决策边界、曲线、混淆矩阵和结构化结果导出，不是真实场景基准。
+
+[📊 实验图](#-保存的实验图) · [🧪 配置对比](#-实验设置) · [📈 历史结果](#-历史结果) · [🚀 复现](#-复现与轻量检查)
+
+[实验入口](train_compare.py) · [实验分析](docs/EXPERIMENT_REPORT.md) · [设计说明](docs/DESIGN_NOTES.md) · [验证记录](VERIFICATION.md)
+
+## 📊 保存的实验图
+
+下列六张图来自仓库保存的历史实验，本轮未训练或重新生成结果图。图片可点击查看完整分辨率。
+
+<p align="center"><a href="assets/dataset_preview.png"><img src="assets/dataset_preview.png" width="380" alt="二维合成数据分布"></a></p>
+
+### 🎯 数据与决策边界
+
+<p align="center">
+<a href="assets/decision_boundary_baseline.png"><img src="assets/decision_boundary_baseline.png" width="380" alt="Baseline决策边界"></a>
+<a href="assets/decision_boundary_improved.png"><img src="assets/decision_boundary_improved.png" width="380" alt="Improved决策边界"></a>
 </p>
 
-一个小规模、可读的 PyTorch 学习实验：在二维合成非线性二分类数据上，对比基础 MLP 与另一组更大网络/优化设置。包含数据生成、训练评估、决策边界、曲线、混淆矩阵和结构化结果导出，不是业务系统或真实场景基准。
+### 📉 训练曲线
 
-[运行入口](train_compare.py) · [实验分析](docs/EXPERIMENT_REPORT.md) · [设计说明](docs/DESIGN_NOTES.md) · [实际验证](VERIFICATION.md)
+<p align="center">
+<a href="assets/loss_curve.png"><img src="assets/loss_curve.png" width="380" alt="两种配置的历史损失曲线"></a>
+<a href="assets/accuracy_curve.png"><img src="assets/accuracy_curve.png" width="380" alt="两种配置的历史准确率曲线"></a>
+</p>
 
-## 实验设置
+### 🔎 混淆矩阵
+
+<p align="center"><a href="assets/confusion_matrices.png"><img src="assets/confusion_matrices.png" width="760" alt="两种配置的历史混淆矩阵"></a></p>
+
+## 🧪 实验设置
 
 默认生成1200个二维样本，seed42，900训练/300测试，CPU历史记录为120轮。标准化只使用训练集统计量。
 
@@ -27,25 +50,7 @@
 
 这里同时改变了容量、标准化、激活和优化器，因此比较的是两种组合配置，不能分解每个因素的独立贡献。训练中逐epoch观察测试指标；更严格的研究需要独立验证集和未参与开发的最终测试集。
 
-## 保存的可视化
-
-下列六张图来自仓库保存的历史实验，本轮未训练或重新生成结果图。图片可点击查看完整分辨率。
-
-<p><a href="assets/dataset_preview.png"><img src="assets/dataset_preview.png" width="420" alt="二维合成数据分布"></a></p>
-
-<p>
-<a href="assets/decision_boundary_baseline.png"><img src="assets/decision_boundary_baseline.png" width="420" alt="Baseline决策边界"></a>
-<a href="assets/decision_boundary_improved.png"><img src="assets/decision_boundary_improved.png" width="420" alt="Improved决策边界"></a>
-</p>
-
-<p>
-<a href="assets/loss_curve.png"><img src="assets/loss_curve.png" width="420" alt="两种配置的历史损失曲线"></a>
-<a href="assets/accuracy_curve.png"><img src="assets/accuracy_curve.png" width="420" alt="两种配置的历史准确率曲线"></a>
-</p>
-
-<p><a href="assets/confusion_matrices.png"><img src="assets/confusion_matrices.png" width="760" alt="两种配置的历史混淆矩阵"></a></p>
-
-## 历史结果
+## 📈 历史结果
 
 来自 [summary.json](results/summary.json) 的单seed CPU记录：
 
@@ -56,7 +61,7 @@
 
 Improved 在这次保存实验中取得较低损失与较高准确率，不能推广为真实数据性能、跨seed稳定优势或单因素因果结论。完整逐轮记录见 [history.csv](results/history.csv)，控制台示例见 [example_output.txt](results/example_output.txt)。
 
-## 复现与轻量检查
+## 🚀 复现与轻量检查
 
 依赖见 [requirements.txt](requirements.txt)：torch≥2.0、NumPy≥1.23、Matplotlib≥3.7；已有验证环境为Python3.11。GPU不是必要条件。
 
@@ -76,7 +81,7 @@ python train_compare.py --help
 
 5项无训练CPU测试在上一轮实际通过，覆盖900/300划分、极端比例拒绝、训练统计标准化和42/1218参数；本轮展示修改没有改源码，复用原验证记录。没有新训练、CUDA、多seed或单因素消融记录，不展示绿色构建/训练成功徽章。
 
-## 文件与许可
+## 📁 文件与许可
 
 `train_compare.py` 是实验入口；`tests/` 是小型数据/结构检查；`assets/` 保存图表与原创项目SVG；`results/` 保存历史结果；`docs/` 保存实验分析。新增的 `runs/` 排除规则只用于本地复现输出，不提交私人环境或缓存。
 
