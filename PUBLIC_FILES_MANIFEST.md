@@ -24,4 +24,4 @@
 | `results/summary.json` | 759 | 82ea965e6d825f4bdd2143064d40e506b15d6f30fd89c8937dd9a53f321a23c7 |
 | `tests/test_data_validation.py` | 1559 | 8e928c0973e2e45e04e208ffe0251a003a0046358237a95bcaece7af86a0efd0 |
 | `train_compare.py` | 18706 | 8fbdf188fa587f9c6153a29a0a314ea5cc7e5f41f17d06223305c98b6ae87c2e |
-| `VERIFICATION.md` | 860 | 254ad0997b759a0e62e80987de087ed398179104675d528c3fc98c474147226a |
+| `VERIFICATION.md` | 979 | 9fd9cecedee9125a5d360e8fe2a2d3397f9ff103703fba2ba7c81bfb42140230 |
